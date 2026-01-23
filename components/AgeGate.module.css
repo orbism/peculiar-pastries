@@ -10,7 +10,11 @@
 }
 
 .overlay.leaving {
-  animation: fadeOut var(--transition-base) ease-out forwards;
+  animation: fadeOut 0.4s ease-out forwards;
+}
+
+.overlay.leaving .modal {
+  animation: bounceOut 0.4s ease-in forwards;
 }
 
 @keyframes fadeIn {
@@ -23,25 +27,35 @@
   to { opacity: 0; }
 }
 
+@keyframes bounceOut {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  50% { transform: scale(1.05) translateY(-10px); }
+  100% { transform: scale(0.8) translateY(50px); opacity: 0; }
+}
+
 .modal {
   background: var(--color-white);
   padding: var(--space-lg);
+  border: 3px solid var(--color-chocolate);
   border-radius: var(--radius-lg);
   text-align: center;
   max-width: 480px;
   margin: var(--space-sm);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  animation: slideUp var(--transition-slow) ease-out;
+  box-shadow: 0 12px 40px rgba(93, 58, 26, 0.2);
+  animation: modalBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes slideUp {
-  from {
+@keyframes modalBounceIn {
+  0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: scale(0.7) translateY(40px);
   }
-  to {
+  60% {
+    transform: scale(1.03) translateY(-5px);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -49,6 +63,13 @@
   color: var(--color-primary);
   font-size: 1.75rem;
   margin-bottom: var(--space-sm);
+  animation: titleWiggle 0.6s ease-out 0.3s;
+}
+
+@keyframes titleWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
 }
 
 .text {
@@ -61,6 +82,7 @@
   font-weight: 700;
   font-size: 1.125rem;
   margin-bottom: var(--space-md);
+  color: var(--color-chocolate);
 }
 
 .buttons {
@@ -76,29 +98,70 @@
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 1rem;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-bounce), box-shadow var(--transition-base);
+  position: relative;
+  overflow: hidden;
 }
 
 .confirm {
   background: var(--color-primary);
   color: var(--color-white);
+  border: 2px solid var(--color-chocolate-dark);
+  animation: buttonPulse 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(124, 47, 31, 0.2); }
+  50% { box-shadow: 0 6px 24px rgba(124, 47, 31, 0.4); }
+}
+
+.confirm::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.confirm:hover::before {
+  width: 200%;
+  height: 200%;
 }
 
 .confirm:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(124, 47, 31, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(124, 47, 31, 0.4);
+  animation: none;
+}
+
+.confirm:active {
+  transform: scale(0.95);
 }
 
 .deny {
   background: var(--color-cream);
   color: var(--color-text);
+  border: 2px solid var(--color-chocolate-light);
 }
 
 .deny:hover {
   transform: scale(1.05);
+  background: var(--color-white);
+}
+
+.deny:active {
+  transform: scale(0.95);
 }
 
 .disclaimer {
   font-size: 0.75rem;
   color: #666;
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--color-chocolate-light);
 }

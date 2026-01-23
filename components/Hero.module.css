@@ -5,21 +5,25 @@
   justify-content: center;
   padding: var(--space-xl) var(--space-sm);
   background: var(--color-pink);
+  overflow: hidden;
 }
 
 .content {
   text-align: center;
-  animation: fadeInUp 0.8s ease-out;
+  animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes fadeInUp {
-  from {
+@keyframes bounceIn {
+  0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: scale(0.8) translateY(40px);
   }
-  to {
+  60% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -27,6 +31,13 @@
   max-width: 100%;
   height: auto;
   margin-bottom: var(--space-md);
+  animation: logoFloat 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
 .tagline {
@@ -35,12 +46,18 @@
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: var(--space-lg);
-  animation: fadeIn 0.8s ease-out 0.3s both;
+  animation: taglineReveal 0.8s ease-out 0.4s both;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes taglineReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .buttons {
@@ -48,7 +65,6 @@
   gap: var(--space-sm);
   justify-content: center;
   flex-wrap: wrap;
-  animation: fadeIn 0.8s ease-out 0.5s both;
 }
 
 .button {
@@ -59,22 +75,42 @@
   font-size: 1rem;
   background: var(--color-primary);
   color: var(--color-white);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  animation: buttonPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.button:nth-child(1) { animation-delay: 0.6s; }
+.button:nth-child(2) { animation-delay: 0.75s; }
+
+@keyframes buttonPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(124, 47, 31, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(124, 47, 31, 0.35);
   opacity: 1;
+}
+
+.button:active {
+  transform: scale(0.98);
 }
 
 .button.secondary {
   background: var(--color-white);
   color: var(--color-primary);
+  border: 2px solid var(--color-chocolate);
 }
 
 .button.secondary:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(93, 58, 26, 0.2);
 }
 
 @media (max-width: 480px) {
