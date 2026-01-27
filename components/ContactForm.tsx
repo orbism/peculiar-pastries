@@ -16,15 +16,22 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('sending');
 
-    // TODO: Implement SMTP submission
-    // For now, simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    console.log('Form submitted:', formData);
-    setStatus('sent');
-    setFormData({ name: '', email: '', company: '', message: '' });
+      if (!res.ok) throw new Error('Failed to send');
 
-    setTimeout(() => setStatus('idle'), 3000);
+      setStatus('sent');
+      setFormData({ name: '', email: '', company: '', message: '' });
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 3000);
+    }
   };
 
   return (

@@ -1,0 +1,75 @@
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.empty p {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.hint {
+  margin-top: 0.5rem !important;
+  font-size: 1rem !important;
+  color: #999;
+}
+
+.list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.cityGroup {
+  margin-bottom: 3rem;
+}
+
+.cityName {
+  font-size: 1.5rem;
+  color: #7C2F1F;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #F2C7DA;
+}
+
+.storeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.storeCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.storeName {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  color: #1a1a1a;
+}
+
+.address {
+  margin: 0 0 0.5rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.phone {
+  margin: 0 0 0.75rem;
+  color: #666;
+}
+
+.link {
+  display: inline-block;
+  color: #7C2F1F;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

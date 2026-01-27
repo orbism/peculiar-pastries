@@ -1,0 +1,104 @@
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.icon {
+  color: #7C2F1F;
+  margin-bottom: 1.5rem;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  color: #7C2F1F;
+  margin: 0 0 1rem;
+}
+
+.emptyText {
+  color: #666;
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.editHint {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 1rem;
+}
+
+.list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.productGroup {
+  margin-bottom: 3rem;
+}
+
+.productName {
+  font-size: 1.25rem;
+  color: #7C2F1F;
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #F2C7DA;
+}
+
+.coaGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.coaCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.coaCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.batch {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.date {
+  color: #666;
+}
+
+.lab {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.download {
+  color: #7C2F1F;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 600px) {
+  .coaCard {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .download {
+    grid-column: span 2;
+    text-align: center;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+  }
+}

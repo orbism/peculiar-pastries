@@ -1,15 +1,70 @@
 'use client';
 
-import { useState } from 'react';
-import { products, productIntro, whyTHCCBD } from '@/lib/products';
+import { useState, useEffect } from 'react';
+import { products as defaultProducts, Product } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
+import { EditableText } from '@/components/cms/EditableText';
+import { ProductEditor } from '@/components/cms/ProductEditor';
+import { useCMS } from '@/lib/cms/hooks';
 import styles from './page.module.css';
 
 type ServingFilter = 'all' | 'single' | 'multi';
 
+interface ProductPageContent {
+  headline: string;
+  body: string;
+  whyTHCCBD: {
+    title: string;
+    body: string;
+  };
+}
+
 export default function ProductsPage() {
+  const { isEditing } = useCMS();
   const [view, setView] = useState<'list' | 'grid'>('list');
   const [servingFilter, setServingFilter] = useState<ServingFilter>('all');
+  const [products, setProducts] = useState<Product[]>(defaultProducts);
+  const [content, setContent] = useState<ProductPageContent>({
+    headline: 'Peculiar Pastries are artisanal, small-batch infused cookies made to taste like real dessert.',
+    body: `Handmade with quality ingredients and a home-baked feel, each cookie is crafted for flavor, texture, and consistency—because infused should still be delicious.
+
+Every cookie is infused with a blend of THC + cannabis-derived full-spectrum CBD, designed to support a more balanced experience through what's often called the entourage effect—the idea that the plant's natural compounds work best together.
+
+Whether you're looking to take the edge off the day, lighten the mood, or turn a good moment into a great one…
+
+Peculiar Pastries — Bakes Life Better.`,
+    whyTHCCBD: {
+      title: 'Why THC + Full-Spectrum CBD?',
+      body: `We infuse every cookie with THC + cannabis-derived full-spectrum CBD to create a more complete, balanced experience. Full-spectrum CBD means it comes from the cannabis plant (not hemp) and includes a broader range of naturally occurring compounds—often associated with the entourage effect, where the plant works best as a team.
+
+In simple terms: it's the difference between a one-note edible and something that feels smoother, more layered, and more well-rounded.
+
+Artisanal edibles—because infused should still be delicious.`,
+    },
+  });
+
+  useEffect(() => {
+    // Fetch CMS content and merge with defaults
+    fetch('/api/cms/content?key=pages-products')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setContent((prev) => ({
+            ...prev,
+            ...data,
+            whyTHCCBD: { ...prev.whyTHCCBD, ...data.whyTHCCBD },
+          }));
+        }
+      })
+      .catch(() => {});
+
+    fetch('/api/cms/content?key=products')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && Array.isArray(data)) setProducts(data);
+      })
+      .catch(() => {});
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     if (servingFilter === 'all') return true;
@@ -24,10 +79,19 @@ export default function ProductsPage() {
 
       <section className={styles.intro}>
         <div className={styles.container}>
-          <p className={styles.headline}>{productIntro.headline}</p>
-          {productIntro.body.split('\n\n').map((para, i) => (
-            <p key={i} className={styles.bodyText}>{para}</p>
-          ))}
+          <EditableText
+            value={content.headline}
+            path="pages-products.headline"
+            tag="p"
+            className={styles.headline}
+          />
+          <EditableText
+            value={content.body}
+            path="pages-products.body"
+            tag="div"
+            multiline
+            className={styles.bodyText}
+          />
         </div>
       </section>
 
@@ -86,6 +150,8 @@ export default function ProductsPage() {
             </div>
           </div>
 
+          <ProductEditor products={products} onUpdate={setProducts} />
+
           <div className={`${styles.productList} ${styles[view]}`}>
             {filteredProducts.map((product, index) => (
               <ProductCard key={product.id} product={product} view={view} index={index} />
@@ -100,10 +166,19 @@ export default function ProductsPage() {
 
       <section className={styles.whyCBD}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>{whyTHCCBD.title}</h2>
-          {whyTHCCBD.body.split('\n\n').map((para, i) => (
-            <p key={i} className={styles.bodyText}>{para}</p>
-          ))}
+          <EditableText
+            value={content.whyTHCCBD?.title ?? ''}
+            path="pages-products.whyTHCCBD.title"
+            tag="h2"
+            className={styles.sectionTitle}
+          />
+          <EditableText
+            value={content.whyTHCCBD?.body ?? ''}
+            path="pages-products.whyTHCCBD.body"
+            tag="div"
+            multiline
+            className={styles.bodyText}
+          />
         </div>
       </section>
     </div>

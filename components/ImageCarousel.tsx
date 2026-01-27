@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import styles from './ImageCarousel.module.css';
 
 interface ImageCarouselProps {
@@ -44,12 +45,14 @@ export default function ImageCarousel({
             key={src}
             className={`${styles.slide} ${index === current ? styles.active : ''}`}
           >
-            <div
-              className={styles.placeholder}
-              style={{ backgroundColor: `hsl(${index * 60}, 70%, 85%)` }}
-            >
-              <span>Image {index + 1}</span>
-            </div>
+            <Image
+              src={src}
+              alt={`Carousel image ${index + 1}`}
+              width={800}
+              height={600}
+              className={styles.image}
+              priority={index === 0}
+            />
           </div>
         ))}
       </div>

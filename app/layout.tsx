@@ -3,6 +3,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import AgeGate from "@/components/AgeGate";
+import { CMSProvider } from "@/components/cms/CMSProvider";
+import { AdminBar } from "@/components/cms/AdminBar";
 
 export const metadata: Metadata = {
   title: "Peculiar Pastries | Bakes Life Better",
@@ -17,10 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AgeGate />
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+        <CMSProvider>
+          <AdminBar />
+          <AgeGate />
+          <Nav />
+          <main>{children}</main>
+          <Footer />
+        </CMSProvider>
       </body>
     </html>
   );

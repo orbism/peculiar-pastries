@@ -1,0 +1,33 @@
+.page {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #F2C7DA 0%, #EEEABD 100%);
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #7C2F1F;
+  margin: 0 0 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+.content {
+  padding: 3rem 1rem;
+  background: #fafafa;
+  min-height: 50vh;
+}
+
+.loading {
+  text-align: center;
+  color: #666;
+  padding: 4rem;
+}

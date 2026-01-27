@@ -5,10 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Nav.module.css';
 
-const navLinks = [
+const navLinks: { href: string; label: string; external?: boolean }[] = [
   { href: '/', label: 'Home' },
   { href: '/products', label: 'Products' },
-  { href: '#', label: 'Merch', external: true }, // TODO: Add Wix store link
+  { href: '/stores', label: 'Stores' },
+  // { href: '#', label: 'Merch', external: true }, // TODO: Add store link
   { href: '/about', label: 'About' },
   { href: '/edu', label: '.EDU' },
   { href: '/coas', label: 'COAs' },
