@@ -38,7 +38,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Email error:', error);
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    const err = error as Error;
+    console.error('Email error:', err.message);
+    console.error('Full error:', err);
+    return NextResponse.json({
+      error: 'Failed to send email',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    }, { status: 500 });
   }
 }

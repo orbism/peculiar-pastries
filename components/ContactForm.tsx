@@ -27,12 +27,39 @@ export default function ContactForm() {
 
       setStatus('sent');
       setFormData({ name: '', email: '', company: '', message: '' });
-      setTimeout(() => setStatus('idle'), 3000);
     } catch {
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 3000);
+      setTimeout(() => setStatus('idle'), 5000);
     }
   };
+
+  const resetForm = () => {
+    setStatus('idle');
+  };
+
+  if (status === 'sent') {
+    return (
+      <div className={styles.successContainer}>
+        <div className={styles.successIcon}>
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h3 className={styles.successTitle}>Message Sent!</h3>
+        <p className={styles.successText}>
+          Thank you for reaching out. We&apos;ll get back to you as soon as possible.
+        </p>
+        <button
+          type="button"
+          className={styles.successButton}
+          onClick={resetForm}
+        >
+          Send Another Message
+        </button>
+      </div>
+    );
+  }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -93,7 +120,7 @@ export default function ContactForm() {
         className={styles.submit}
         disabled={status === 'sending'}
       >
-        {status === 'sending' ? 'Sending...' : status === 'sent' ? 'Sent!' : 'Send Message'}
+        {status === 'sending' ? 'Sending...' : 'Send Message'}
       </button>
 
       {status === 'error' && (
