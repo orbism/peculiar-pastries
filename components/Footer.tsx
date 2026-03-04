@@ -29,7 +29,7 @@ export default function Footer() {
         </p>
 
         <p className={styles.copyright}>
-          &copy; {new Date().getFullYear()} Peculiar Pastries. All rights reserved.
+          &copy; {new Date().getFullYear()} Peculiar Pastries. All rights reserved. | Site by <a href="https://orbatron.org" target="_blank" className={styles.siteLink}>orbatron</a>
         </p>
       </div>
     </footer>
