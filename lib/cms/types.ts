@@ -90,4 +90,7 @@ export interface StoreLocation {
   zip: string;
   phone?: string;
   website?: string;
+  licenseNumber?: string;
+  googleMapsLink?: string;
+  mapThumbUrl?: string;
 }
